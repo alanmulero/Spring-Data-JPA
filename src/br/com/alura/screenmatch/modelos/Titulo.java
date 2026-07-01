@@ -19,7 +19,19 @@ public class Titulo implements Comparable<Titulo> {
         this.anoDeLancamento = anoDeLancamento;
     }
 
-    public String getNome() {
+    public Titulo(TituloOmdb meuTituloOmdb) {
+		// construtor que recebe um objeto TituloOmdb e inicializa os atributos da classe Titulo
+    			this.nome = meuTituloOmdb.title();	
+    			this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
+    			this.duracaoEmMinutos = Integer.valueOf(
+    			        meuTituloOmdb.runtime()
+    			                .replace("min", "")
+    			                .trim()
+    			);
+    			
+	}
+
+	public String getNome() {
         return nome;
     }
 
@@ -78,6 +90,7 @@ public class Titulo implements Comparable<Titulo> {
 	public String toString() {
 		return "Titulo [nome=" + nome + ", anoDeLancamento=" + anoDeLancamento + "]";
 	}
+	
     
     
     

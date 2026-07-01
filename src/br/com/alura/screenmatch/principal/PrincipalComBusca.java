@@ -8,9 +8,12 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.Scanner;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import br.com.alura.screenmatch.modelos.Titulo;
+import br.com.alura.screenmatch.modelos.TituloOmdb;
 
 public class PrincipalComBusca {
 
@@ -33,12 +36,24 @@ public class PrincipalComBusca {
 		
 		var json = response.body();
 		System.out.println(json);
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
 		
-		Titulo meuTitulo = gson.fromJson(json, Titulo.class);
+		
+		TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
+		
+		// ************************** Usando minha classe Titulo para exibir os dados **************************
+		
+		Titulo meuTitulo = new Titulo(meuTituloOmdb);
+
 		System.out.println("************************");
-		System.out.println("Nome do filme: " + meuTitulo.getNome());
-		System.out.println("Ano de lançamento: " + meuTitulo.getAnoDeLancamento());
+		System.out.println("Nome do filme: " + meuTituloOmdb.title());
+		System.out.println("Ano de lançamento: " + meuTituloOmdb.year());
+		
+		System.out.println("Imprimindo minha classe Titulo: ");
+		System.out.println("Nome do filme: " + meuTitulo);
+	
+		
+		
 
 	}
 
