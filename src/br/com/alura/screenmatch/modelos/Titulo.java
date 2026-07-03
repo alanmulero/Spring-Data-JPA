@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Titulo implements Comparable<Titulo> {
 	
-	@SerializedName("Title")
+	//@SerializedName("Title")
     private String nome;
-	@SerializedName("Year")
+	//@SerializedName("Year")
     private int anoDeLancamento;
-	@SerializedName("imdbRating")
+	//@SerializedName("imdbRating")
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
     private int totalDeAvaliacoes;
@@ -22,6 +22,11 @@ public class Titulo implements Comparable<Titulo> {
     public Titulo(TituloOmdb meuTituloOmdb) {
 		// construtor que recebe um objeto TituloOmdb e inicializa os atributos da classe Titulo
     			this.nome = meuTituloOmdb.title();	
+    			if (meuTituloOmdb.year().length() > 4) {
+					throw new MeuErrodeConversao("Não consegui converter o ano porque tem mais de 4 caracteres: " + meuTituloOmdb.year());
+				} else {
+					this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
+				}
     			this.anoDeLancamento = Integer.valueOf(meuTituloOmdb.year());
     			this.duracaoEmMinutos = Integer.valueOf(
     			        meuTituloOmdb.runtime()
@@ -88,7 +93,7 @@ public class Titulo implements Comparable<Titulo> {
 
 	@Override
 	public String toString() {
-		return "Titulo [nome=" + nome + ", anoDeLancamento=" + anoDeLancamento + "]";
+		return "Titulo [nome=" + nome + ", anoDeLancamento=" + anoDeLancamento + "  Duração em Minutos:   " + duracaoEmMinutos + "]";
 	}
 	
     

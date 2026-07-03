@@ -42,8 +42,14 @@ public class PrincipalComBusca {
 		TituloOmdb meuTituloOmdb = gson.fromJson(json, TituloOmdb.class);
 		
 		// ************************** Usando minha classe Titulo para exibir os dados **************************
+		Titulo meuTitulo;
+		try {
+			 meuTitulo = new Titulo(meuTituloOmdb);
+		} catch (NumberFormatException e) {
+			System.out.println("Formato do ano invalido."+ e.getMessage());
+			return; // Encerra o programa se o filme não for encontrado
+		}
 		
-		Titulo meuTitulo = new Titulo(meuTituloOmdb);
 
 		System.out.println("************************");
 		System.out.println("Nome do filme: " + meuTituloOmdb.title());
